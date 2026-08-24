@@ -1,65 +1,270 @@
-import Image from "next/image";
+import Link from "next/link";
+import Reveal from "@/components/Reveal";
+import RotatingWords from "@/components/RotatingWords";
+import StatsCounter from "@/components/StatsCounter";
+import Testimonials from "@/components/Testimonials";
+import { differentiators, homeServices, idealWorkforceBullets, site } from "@/lib/site";
 
-export default function Home() {
+const cardIcons = [
+  "M12 2l2.6 5.9L21 9l-4.8 4.2L17.6 20 12 16.6 6.4 20l1.4-6.8L3 9l6.4-1.1z", // insight
+  "M12 3a4 4 0 100 8 4 4 0 000-8zM4 21a8 8 0 0116 0z", // service
+  "M4 6h16M4 12h16M4 18h10", // support
+  "M4 19V5m5 14V9m5 10V4m5 15v-7", // data
+  "M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7z", // neutral
+  "M3 12h4l3-8 4 16 3-8h4", // scalable
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      {/* ---------- Hero ---------- */}
+      <section className="relative isolate flex min-h-[82vh] items-center overflow-hidden bg-grad-primary">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        >
+          <source src={site.heroVideo} />
+        </video>
+        <div
+          className="absolute inset-0"
+          style={{ backgroundImage: "var(--grad-hero-overlay)" }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+        <div className="relative mx-auto w-full max-w-[1080px] px-6 py-24 text-center text-white">
+          <h1 className="text-4xl font-extrabold leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] md:text-6xl">
+            Strategic Workforce Solutions Built By Healthcare Experts
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
+            End-To-End Workforce Support That Improves Care And Scales With Your
+            Needs
           </p>
+          <Link href="/contact" className="btn-pill mt-9 text-base">
+            Let&apos;s Connect!
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* ---------- Tagline strip ---------- */}
+      <div className="bg-grad-footer text-white">
+        <p className="mx-auto max-w-[1240px] px-6 py-4 text-center text-sm font-semibold tracking-[0.25em] md:text-base">
+          CLINICIAN LED <span className="mx-3 text-white/50">|</span> VENDOR NEUTRAL{" "}
+          <span className="mx-3 text-white/50">|</span> DATA INFORMED
+        </p>
+      </div>
+
+      {/* ---------- Intro ---------- */}
+      <section className="section-x py-20 md:py-28">
+        <div className="mx-auto max-w-[900px] text-center">
+          <Reveal>
+            <h2 className="text-3xl font-extrabold leading-tight md:text-5xl">
+              <RotatingWords
+                words={["Transforming", "Elevating", "Optimizing"]}
+              />{" "}
+              <br className="hidden sm:block" />
+              Healthcare Logistics
+            </h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <p className="mt-8 text-lg font-semibold text-ink">
+              At Elevate Logistic Solutions (ELS), we bring a fresh perspective to
+              workforce challenges in healthcare—because we’ve been on every side of
+              the system.
+            </p>
+          </Reveal>
+          <div className="mt-6 space-y-5 text-muted">
+            <p>
+              Our team is made up of clinicians, data scientists, researchers, and
+              executive leaders who understand the pressure points hospitals and
+              health systems face. We designed ELS to offer a smarter, more agile way
+              to manage your workforce—one that prioritizes outcomes, transparency,
+              and long-term sustainability.
+            </p>
+            <p>
+              As a woman-owned, vendor-neutral Managed Service Provider (MSP), we work
+              alongside healthcare organizations of all sizes to design and deliver
+              tailored, data-informed workforce strategies. Whether you’re responding
+              to urgent gaps in coverage or developing a five-year workforce plan,
+              we’re here to help.
+            </p>
+            <p>
+              We are passionate about helping develop sustainable change for your
+              workforce strategy. We elevate your workforce, from the inside out.
+            </p>
+          </div>
+          <Link href="/contact" className="btn-pill mt-9">
+            Talk With Our Team
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ---------- What Makes Us Different ---------- */}
+      <section className="section-x bg-soft py-20 md:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-extrabold md:text-4xl">
+              What Makes Us Different
+            </h2>
+            <p className="mt-4 text-muted">
+              At Elevate Logistic Solutions, we empower organizations to create
+              streamlined, high-performance workforce operations that drive long-term
+              success.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {differentiators.map((d, idx) => (
+              <Reveal key={d.title} delay={(idx % 3) * 80}>
+                <article className="h-full rounded-2xl bg-white p-8 shadow-card transition hover:-translate-y-1">
+                  <div className="bg-grad-primary flex h-14 w-14 items-center justify-center rounded-2xl text-white">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={cardIcons[idx]} />
+                    </svg>
+                  </div>
+                  <h3 className="mt-6 text-xl font-bold">{d.title}</h3>
+                  <p className="mt-3 leading-relaxed text-muted">{d.body}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Our Services at a Glance ---------- */}
+      <section className="section-x py-20 md:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-extrabold md:text-4xl">
+              Our Services at a Glance
+            </h2>
+            <p className="mt-4 text-muted">
+              Our team understands that every care environment has unique workforce
+              demands. Whether you’re experiencing a surge in patient volume, building
+              a succession plan, or trying to reduce agency dependency, we provide
+              flexible, scalable, and data-informed solutions tailored to your goals.
+            </p>
+            <p className="mt-4 text-muted">
+              We go beyond traditional staffing—we serve as an extension of your
+              leadership team, delivering full-cycle workforce support that balances
+              quality care, compliance, and cost control.
+            </p>
+          </div>
+
+          <div className="mt-14 space-y-6">
+            {homeServices.map((s, idx) => (
+              <Reveal key={s.title}>
+                <article className="grid items-center gap-8 rounded-3xl bg-soft p-8 md:grid-cols-[1.4fr_1fr] md:p-10">
+                  <div className={idx % 2 === 1 ? "md:order-2" : ""}>
+                    <h3 className="text-2xl font-bold">{s.title}</h3>
+                    <p className="mt-4 leading-relaxed text-muted">{s.body}</p>
+                    <Link href="/our-services" className="btn-pill mt-6 text-sm">
+                      {s.cta}
+                    </Link>
+                  </div>
+                  <div
+                    className={`bg-grad-primary flex h-44 items-center justify-center rounded-2xl text-6xl font-black text-white/90 ${
+                      idx % 2 === 1 ? "md:order-1" : ""
+                    }`}
+                  >
+                    0{idx + 1}
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Our Team ---------- */}
+      <section className="section-x bg-soft py-20 md:py-28">
+        <div className="mx-auto max-w-[900px] text-center">
+          <h2 className="text-3xl font-extrabold md:text-4xl">Our Team</h2>
+          <p className="mt-6 leading-relaxed text-muted">
+            Elevate Logistic Solutions (ELS) is not your typical workforce partner. We
+            are led by a team of clinicians, researchers, data scientists, and
+            healthcare executives with decades of experience across every level of
+            care delivery. We’ve been on the front lines building care teams, managing
+            compliance audits and workforce crises, and launching new facilities.
+            That’s why we created ELS—to deliver more human-centered workforce
+            solutions for healthcare organizations of all sizes and specialties.
+          </p>
+          <Link href="/about-us" className="btn-pill mt-8">
+            Read Our Story
+          </Link>
+        </div>
+      </section>
+
+      {/* ---------- The Elevate Experience (stats) ---------- */}
+      <section className="bg-grad-footer relative overflow-hidden py-20 text-white md:py-28">
+        <div className="blob left-[10%] top-[-40px] h-64 w-64" />
+        <div className="blob right-[8%] bottom-[-80px] h-72 w-72" />
+        <div className="relative mx-auto max-w-[1240px] px-6">
+          <div className="text-center">
+            <p className="text-sm font-semibold tracking-[0.3em] text-white/70">
+              BUILDING YOUR IDEAL WORKFORCE
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">
+              The Elevate Experience
+            </h2>
+          </div>
+          <div className="mt-16">
+            <StatsCounter />
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Let's Build Your Ideal Workforce ---------- */}
+      <section className="section-x py-20 md:py-28">
+        <div className="mx-auto grid max-w-[1240px] items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            <p className="text-sm font-semibold tracking-[0.3em] text-brand-berry">
+              START TODAY!
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold md:text-5xl">
+              Let’s Build Your Ideal Workforce
+            </h2>
+            <p className="mt-5 text-muted">
+              We’re not just here to fill roles—we’re here to build long-term workforce
+              health with the same level of care and expertise you bring to your
+              patients.
+            </p>
+            <p className="mt-6 font-semibold">
+              Let’s build a workforce that performs today—and thrives tomorrow.
+            </p>
+            <Link href="/contact" className="btn-pill mt-8">
+              Let&apos;s Connect!
+            </Link>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <ul className="space-y-4 rounded-3xl bg-soft p-8 md:p-10">
+              {idealWorkforceBullets.map((b) => (
+                <li key={b} className="flex items-start gap-4">
+                  <span className="bg-grad-primary mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </span>
+                  <span className="text-lg text-ink">{b}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- Testimonials ---------- */}
+      <section className="section-x bg-soft py-20 md:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <h2 className="text-center text-3xl font-extrabold md:text-4xl">
+            What Our Partners Say
+          </h2>
+          <div className="mt-14">
+            <Testimonials />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
