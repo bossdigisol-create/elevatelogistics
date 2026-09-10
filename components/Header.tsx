@@ -133,7 +133,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Row 2: desktop nav with sliding underline */}
+        {/* Row 2: desktop nav with sliding underline + menu (bar) button */}
         <div className="hidden border-t border-black/5 md:block">
           <nav className="relative mx-auto flex max-w-[1240px] items-center gap-9 px-5">
             {nav.map((item, i) => (
@@ -154,6 +154,20 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+
+            {/* Desktop menu (bar) button — pinned to the right of the sticky nav */}
+            <button
+              type="button"
+              aria-label="Open menu"
+              aria-expanded={open}
+              onClick={() => setOpen(true)}
+              className="group ml-auto flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-xl text-ink transition hover:bg-black/[0.06]"
+            >
+              <span className="block h-[2.5px] w-5 rounded-full bg-current transition-all duration-300 group-hover:w-6" />
+              <span className="block h-[2.5px] w-6 rounded-full bg-current" />
+              <span className="block h-[2.5px] w-5 rounded-full bg-current transition-all duration-300 group-hover:w-6" />
+            </button>
+
             {/* animated dark-pink underline */}
             <span
               className="pointer-events-none absolute bottom-0 h-[3px] rounded-full transition-[transform,width,opacity] duration-300 ease-out"
@@ -169,10 +183,11 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile slide-in menu — rendered OUTSIDE the backdrop-blurred header so
-          `position: fixed` resolves against the viewport (full height, on top). */}
+      {/* Slide-in menu (mobile toggle + desktop bar button) — rendered OUTSIDE the
+          backdrop-blurred header so `position: fixed` resolves against the
+          viewport (full height, on top). */}
       <div
-        className={`fixed inset-0 z-[60] overflow-hidden md:hidden ${
+        className={`fixed inset-0 z-[60] overflow-hidden ${
           open ? "" : "pointer-events-none"
         }`}
         aria-hidden={!open}

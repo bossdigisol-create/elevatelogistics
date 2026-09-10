@@ -18,9 +18,14 @@ export const site = {
   contactBg: "/media/contact-bg.jpg",
   ogImage: "/media/home-parallax.jpg",
 
-  // Hero background video still streamed from the origin CDN (large .mov asset).
-  heroVideo:
-    "https://elevatelogisticsolutions.com/wp-content/uploads/2025/04/businesswoman-presenting-new-startup-project-for-p-2024-05-06-18-00-37-utc.mov",
+  // Hero background video — self-hosted from /public/media so it loads fast and
+  // reliably from our own origin (the old WP-CDN stream was slow/unreliable,
+  // which is why it "disappeared"). Served as .mp4: the source is H.264 inside a
+  // QuickTime wrapper, and since .mov and .mp4 share the ISO-BMFF box structure,
+  // relabeling the container lets browsers decode it via the MP4 pipeline — no
+  // re-encode needed. Poster paints instantly while the first frames buffer.
+  heroVideo: "/media/herosection-behind-video.mp4",
+  heroPoster: "/media/home-parallax.jpg",
 
   tagline: "Elevating Workforce Strategy.",
   taglineSub:
