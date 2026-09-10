@@ -9,6 +9,7 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [condensed, setCondensed] = useState(false);
 
   // Sliding underline state (desktop nav)
   const [hover, setHover] = useState<number | null>(null);
@@ -48,7 +49,13 @@ export default function Header() {
   }, [measure]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      // Past this point the logo + Contact button collapse away and only the
+      // nav bar stays pinned at the top (desktop).
+      setCondensed(y > 72);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -72,14 +79,23 @@ export default function Header() {
           scrolled ? "shadow-[0_6px_24px_-16px_rgba(28,27,34,0.5)]" : ""
         }`}
       >
-        {/* Row 1: logo + (desktop) Contact / (mobile) menu button */}
-        <div className="mx-auto flex max-w-[1240px] items-center justify-between px-5 py-3 md:py-4">
+        {/* Row 1: logo + (desktop) Contact / (mobile) menu button.
+            On desktop this row collapses away on scroll so only the nav bar
+            (Row 2) stays pinned to the top. */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-out ${
+            condensed ? "md:max-h-0 md:opacity-0" : "md:max-h-40 md:opacity-100"
+          }`}
+        >
+          <div className="mx-auto flex max-w-[1240px] items-center justify-between px-5 py-3 md:py-4">
           <Link href="/" aria-label={site.name} className="shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={site.logo}
               alt={site.name}
-              className="h-20 w-auto md:h-28"
+              className={`w-auto transition-all duration-300 md:h-28 ${
+                condensed ? "h-14" : "h-20"
+              }`}
             />
           </Link>
 
@@ -114,6 +130,7 @@ export default function Header() {
               }`}
             />
           </button>
+          </div>
         </div>
 
         {/* Row 2: desktop nav with sliding underline */}
@@ -191,19 +208,22 @@ export default function Header() {
           </div>
 
           <nav className="mt-2 flex flex-col gap-1">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`rounded-xl px-4 py-3 text-lg font-semibold transition ${
-                  isActive(item.href)
-                    ? "bg-white/15 text-white"
-                    : "text-white/85 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {/* Contact is omitted here — the "Contact Us" button below covers it. */}
+            {nav
+              .filter((item) => item.href !== "/contact")
+              .map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-xl px-4 py-3 text-lg font-semibold transition ${
+                    isActive(item.href)
+                      ? "bg-white/15 text-white"
+                      : "text-white/85 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
           </nav>
 
           <Link

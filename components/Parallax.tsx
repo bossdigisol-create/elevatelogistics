@@ -24,13 +24,20 @@ export default function Parallax({
     backgroundImage: `url(${image})`,
     minHeight,
   };
+  const hasOverlay = overlay && overlay !== "none";
   return (
     <section
       className={`parallax relative isolate flex items-center overflow-hidden bg-cover bg-center bg-no-repeat bg-scroll md:bg-fixed ${className}`}
       style={style}
     >
-      <div className="absolute inset-0" style={{ backgroundImage: overlay }} />
-      <div className="relative mx-auto w-full max-w-[1240px] px-6">{children}</div>
+      {hasOverlay && (
+        <div className="absolute inset-0" style={{ backgroundImage: overlay }} />
+      )}
+      {children ? (
+        <div className="relative mx-auto w-full max-w-[1240px] px-6">
+          {children}
+        </div>
+      ) : null}
     </section>
   );
 }

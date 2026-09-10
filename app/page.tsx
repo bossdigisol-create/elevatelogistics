@@ -77,10 +77,11 @@ export default function HomePage() {
         </p>
       </div>
 
-      {/* ---------- Intro ---------- */}
+      {/* ---------- Intro (animated heading left · copy + CTA right) ---------- */}
       <section className="section-x py-20 md:py-28">
-        <div className="mx-auto max-w-[900px] text-center">
-          <Reveal>
+        <div className="mx-auto grid max-w-[1240px] items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          {/* Left: animated heading + lead */}
+          <Reveal dir="left">
             <h2 className="text-3xl font-extrabold leading-tight md:text-5xl">
               <RotatingWords
                 words={["Transforming", "Elevating", "Optimizing"]}
@@ -88,67 +89,48 @@ export default function HomePage() {
               <br className="hidden sm:block" />
               Healthcare Logistics
             </h2>
-          </Reveal>
-          <Reveal delay={100}>
             <p className="mt-8 text-lg font-semibold text-ink">
               At Elevate Logistic Solutions (ELS), we bring a fresh perspective to
               workforce challenges in healthcare—because we’ve been on every side of
               the system.
             </p>
           </Reveal>
-          <div className="mt-6 space-y-5 text-muted">
-            <p>
-              Our team is made up of clinicians, data scientists, researchers, and
-              executive leaders who understand the pressure points hospitals and
-              health systems face. We designed ELS to offer a smarter, more agile way
-              to manage your workforce—one that prioritizes outcomes, transparency,
-              and long-term sustainability.
-            </p>
-            <p>
-              As a woman-owned, vendor-neutral Managed Service Provider (MSP), we work
-              alongside healthcare organizations of all sizes to design and deliver
-              tailored, data-informed workforce strategies. Whether you’re responding
-              to urgent gaps in coverage or developing a five-year workforce plan,
-              we’re here to help.
-            </p>
-            <p>
-              We are passionate about helping develop sustainable change for your
-              workforce strategy. We elevate your workforce, from the inside out.
-            </p>
-          </div>
-          <Link href="/contact" className="btn-pill mt-9">
-            Talk With Our Team
-          </Link>
-        </div>
-      </section>
 
-      {/* ---------- Parallax band (Home-BG-Slide) ---------- */}
-      <Parallax
-        image={site.parallaxImage}
-        overlay="linear-gradient(284deg, rgba(173,23,101,0.82) 0%, rgba(22,0,181,0.78) 100%)"
-        minHeight="clamp(380px, 62vh, 640px)"
-      >
-        <div className="mx-auto max-w-2xl py-24 text-center text-white md:py-28">
-          <Reveal>
-            <p className="text-sm font-semibold tracking-[0.3em] text-white/70">
-              DATA-INFORMED WORKFORCE STRATEGY
-            </p>
-            <h2 className="mt-4 text-3xl font-extrabold leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] md:text-5xl">
-              See Your Workforce Through a New Lens
-            </h2>
-            <p className="mx-auto mt-5 max-w-xl text-lg text-white/90">
-              We turn workforce data into action—revealing opportunities, predicting
-              gaps, and building strategies that scale across every care environment.
-            </p>
-            <Link
-              href="/our-services"
-              className="mt-9 inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 font-semibold text-brand-berry transition hover:bg-white/90"
-            >
-              Explore Our Services
+          {/* Right: supporting copy + CTA */}
+          <Reveal delay={120} dir="right">
+            <div className="space-y-5 text-muted">
+              <p>
+                Our team is made up of clinicians, data scientists, researchers, and
+                executive leaders who understand the pressure points hospitals and
+                health systems face. We designed ELS to offer a smarter, more agile
+                way to manage your workforce—one that prioritizes outcomes,
+                transparency, and long-term sustainability.
+              </p>
+              <p>
+                As a woman-owned, vendor-neutral Managed Service Provider (MSP), we
+                work alongside healthcare organizations of all sizes to design and
+                deliver tailored, data-informed workforce strategies. Whether you’re
+                responding to urgent gaps in coverage or developing a five-year
+                workforce plan, we’re here to help.
+              </p>
+              <p>
+                We are passionate about helping develop sustainable change for your
+                workforce strategy. We elevate your workforce, from the inside out.
+              </p>
+            </div>
+            <Link href="/contact" className="btn-pill mt-9">
+              Talk With Our Team
             </Link>
           </Reveal>
         </div>
-      </Parallax>
+      </section>
+
+      {/* ---------- Parallax band (Home-BG-Slide) — simple image, no overlay ---------- */}
+      <Parallax
+        image={site.parallaxImage}
+        overlay="none"
+        minHeight="clamp(340px, 55vh, 560px)"
+      />
 
       {/* ---------- What Makes Us Different ---------- */}
       <section className="section-x bg-soft py-20 md:py-28">
