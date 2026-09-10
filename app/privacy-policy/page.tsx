@@ -1,16 +1,24 @@
-import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
+import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Privacy Policy",
   description:
     "How Elevate Logistic Solutions collects, uses, and protects your personal information.",
-};
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Privacy Policy", path: "/privacy-policy" },
+        ])}
+      />
       <PageHero title="Privacy Policy" />
 
       <section className="section-x py-16 md:py-24">

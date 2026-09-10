@@ -3,17 +3,48 @@
 export const site = {
   name: "Elevate Logistic Solutions",
   shortName: "ELS",
+  url: "https://elevatelogisticsolutions.com",
   email: "info@elevatelogisticsolutions.com",
   officeCity: "Rochester, New York",
+  officeCityShort: "Rochester, NY",
+  region: "NY",
   copyright: "© 2025 Elevate Logistic Solutions",
-  // Brand assets currently referenced from the live site CDN.
-  // Swap these for files in /public to fully self-host.
-  logo: "https://elevatelogisticsolutions.com/wp-content/uploads/2025/03/Elevate_Logo_Main-Logo.svg",
+
+  // Self-hosted brand assets (see /public/media). Faster + independent of the WP CDN.
+  logo: "/media/logo.svg",
+  logoWhite: "/media/logo-white.svg",
+  iconOutline: "/media/elevate-icon-outline.png",
+  parallaxImage: "/media/home-parallax.jpg",
+  contactBg: "/media/contact-bg.jpg",
+  ogImage: "/media/home-parallax.jpg",
+
+  // Hero background video still streamed from the origin CDN (large .mov asset).
   heroVideo:
     "https://elevatelogisticsolutions.com/wp-content/uploads/2025/04/businesswoman-presenting-new-startup-project-for-p-2024-05-06-18-00-37-utc.mov",
+
   tagline: "Elevating Workforce Strategy.",
   taglineSub:
     "Supporting workforce operations through innovation, transparency & precision.",
+
+  // Global on-page SEO keyword set (healthcare workforce MSP / staffing).
+  keywords: [
+    "healthcare workforce solutions",
+    "healthcare staffing agency",
+    "managed service provider healthcare",
+    "vendor neutral MSP",
+    "per diem staffing",
+    "travel nurse staffing",
+    "healthcare workforce management",
+    "credentialing and compliance",
+    "healthcare workforce consulting",
+    "nurse staffing solutions",
+    "workforce optimization healthcare",
+    "clinician-led staffing",
+    "crisis response staffing",
+    "temp-to-hire healthcare staffing",
+    "healthcare workforce analytics",
+    "healthcare staffing Rochester NY",
+  ],
 };
 
 export const nav = [
@@ -111,12 +142,46 @@ export const testimonials = [
   },
 ];
 
+// ---- About page ----------------------------------------------------
+export const whyChooseUs = [
+  {
+    title: "Concierge-Level Service",
+    body: "A personalized, high-touch approach tailored to each unique healthcare setting and their needs.",
+  },
+  {
+    title: "Industry Expertise",
+    body: "A leadership team with decades of hands-on healthcare experience.",
+  },
+  {
+    title: "Comprehensive Workforce Management",
+    body: "From recruitment to compliance tracking, we handle it all.",
+  },
+  {
+    title: "Proven Results",
+    body: "Success stories from hospitals nationwide.",
+  },
+  {
+    title: "Cost Efficiency & Transparency",
+    body: "Clear pricing and measurable workforce improvements.",
+  },
+];
+
+export const careEnvironments = [
+  "Hospitals and Health Systems",
+  "Surgical and Ambulatory Centers",
+  "Behavioral and Mental Health Providers",
+  "Nursing Homes and Long-Term Care",
+  "Rehab Facilities and Outpatient Clinics",
+  "Home Health and Hospice Providers",
+  "Community-Based and Nonprofit Clinics",
+];
+
 // ---- Services page -------------------------------------------------
 export const serviceGroups = [
   {
-    group: "Workforce Placement Solutions",
+    group: "Comprehensive Workforce Placement Services",
     intro:
-      "Flexible placement across clinical, allied health, and non-clinical roles—ready to fill gaps today or build long-term strength.",
+      "We provide flexible placement models to meet your immediate needs and support long-term stability. Our nationwide network of professionals spans clinical, allied health, and non-clinical roles—including nursing, therapy, administrative, and support services.",
     items: [
       {
         title: "Per Diem Staffing",
@@ -160,9 +225,9 @@ export const serviceGroups = [
     ],
   },
   {
-    group: "Workforce Management & Optimization",
+    group: "Workforce Management Solutions",
     intro:
-      "Operational insight and systems that keep your workforce compliant, efficient, and future-ready.",
+      "Staffing is just the start. We offer full-service support to help you manage your workforce more strategically and sustainably.",
     items: [
       {
         title: "Credentialing & Compliance Oversight",
@@ -205,9 +270,9 @@ export const serviceGroups = [
     ],
   },
   {
-    group: "Healthcare Consulting Services",
+    group: "Healthcare Workforce Consulting",
     intro:
-      "Strategic consulting to realign systems, reduce waste, and unlock organizational value.",
+      "Need a high-level partner to rethink your entire workforce strategy? We offer fractional consulting services through ELS and its extended network of advisors.",
     items: [
       {
         title: "Workforce Strategy & Forecasting",
@@ -249,6 +314,35 @@ export const serviceGroups = [
   },
 ];
 
+// Workforce Data & Analytics (services page feature section)
+export const analytics = {
+  intro:
+    "We view workforce challenges through a different lens—one powered by data and backed by operational intelligence.",
+  body: "While many providers focus on filling roles, we focus on how your workforce functions holistically. Our analytics services are built to help you reduce costs, uncover opportunities, and proactively manage workforce health.",
+  deliverables: [
+    {
+      title: "Real-Time Reporting",
+      body: "Actionable dashboards and scorecards tied to turnover, credentialing, fill rates, and performance.",
+    },
+    {
+      title: "Utilization Analysis",
+      body: "Understand over/understaffing by shift, unit, or location.",
+    },
+    {
+      title: "Predictive Analytics",
+      body: "Forecast staffing needs, attrition risks, and credential expirations before they happen.",
+    },
+    {
+      title: "Cost Trend Tracking",
+      body: "Visualize agency spend, overtime, and wage benchmarks to guide smarter planning.",
+    },
+    {
+      title: "Workforce Mix Modeling",
+      body: "Analyze the impact of adjusting full-time, part-time, float, and PRN ratios.",
+    },
+  ],
+};
+
 // ---- FAQ -----------------------------------------------------------
 export const faqs = [
   {
@@ -272,6 +366,10 @@ export const faqs = [
     a: "Elevate Logistic Solutions leverages over 60 years of combined experience in executive leadership, acute care, research, data science, and more. Our data-driven approach allows us to make informed decisions that align with your organization's needs and ensure you’re getting the best talent. We listen closely to your goals and work alongside you to achieve them.",
   },
   {
+    q: "What types of healthcare organizations do you work with?",
+    a: "Elevate Logistic Solutions works with a wide range of healthcare organizations, from hospitals and health systems to clinics and long-term care facilities. Our flexible, agile approach allows us to adapt to the unique needs of any healthcare provider.",
+  },
+  {
     q: "How do you ensure transparency in the Elevate Logistic Solutions processes?",
     a: "Elevate Logistic Solutions believes in clear and open communication at every stage of the staffing process. From the initial consultation to ongoing performance evaluations, we work closely with you to keep you informed and ensure the solutions we provide align with your goals and expectations.",
   },
@@ -283,13 +381,4 @@ export const faqs = [
     q: "Why should we choose Elevate Logistic Solutions for contingent staffing?",
     a: "Elevate Logistic Solutions is the best in the business because we are clinician-run, data-driven, and passionate about helping healthcare organizations succeed. We take the time to understand your unique needs, collaborate closely with your team, and provide workforce solutions that truly make a difference in patient care and organizational efficiency.",
   },
-];
-
-export const careEnvironments = [
-  "Hospitals and Health Systems",
-  "Surgical and Ambulatory Centers",
-  "Academic Medical Centers",
-  "Rural and Critical Access Hospitals",
-  "Specialty and Behavioral Health Clinics",
-  "Multi-Site and Long-Term Care Facilities",
 ];

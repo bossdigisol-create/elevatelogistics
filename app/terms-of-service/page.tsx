@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
+import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Terms of Service",
   description:
     "The terms and conditions that govern your access to and use of the Elevate Logistic Solutions website.",
-};
+  path: "/terms-of-service",
+});
 
 const sections = [
   {
@@ -50,6 +52,12 @@ const sections = [
 export default function TermsPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Terms of Service", path: "/terms-of-service" },
+        ])}
+      />
       <PageHero title="Terms of Service" />
 
       <section className="section-x py-16 md:py-24">

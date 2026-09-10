@@ -6,9 +6,16 @@ type Props = {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  /** Entrance direction. Defaults to "up". */
+  dir?: "up" | "left" | "right" | "scale";
 };
 
-export default function Reveal({ children, className = "", delay = 0 }: Props) {
+export default function Reveal({
+  children,
+  className = "",
+  delay = 0,
+  dir = "up",
+}: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -33,6 +40,7 @@ export default function Reveal({ children, className = "", delay = 0 }: Props) {
   return (
     <div
       ref={ref}
+      data-dir={dir}
       className={`reveal ${visible ? "is-visible" : ""} ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >

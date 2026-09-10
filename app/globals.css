@@ -119,20 +119,33 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* On-load hero entrance */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-in {
+  opacity: 0;
+  animation: hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-in-1 { animation-delay: 0.05s; }
+.hero-in-2 { animation-delay: 0.22s; }
+.hero-in-3 { animation-delay: 0.4s; }
+
 /* reveal-on-scroll (paired with Reveal client component) */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
+.reveal[data-dir="left"]  { transform: translateX(-40px); }
+.reveal[data-dir="right"] { transform: translateX(40px); }
+.reveal[data-dir="scale"] { transform: scale(0.94); }
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  html { scroll-behavior: auto; }
+  transform: translate(0, 0) scale(1);
 }
 
 /* rotating words */
@@ -142,10 +155,30 @@ body {
   30%, 100% { opacity: 0; transform: translateY(-12px); }
 }
 
-/* decorative parallax blobs */
+/* decorative floating blobs */
+@keyframes float-blob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -22px, 0); }
+}
 .blob {
   position: absolute;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.08);
   pointer-events: none;
+  animation: float-blob 9s ease-in-out infinite;
+  will-change: transform;
+}
+.blob:nth-of-type(2) { animation-duration: 11s; animation-delay: -3s; }
+.blob:nth-of-type(3) { animation-duration: 13s; animation-delay: -6s; }
+.blob:nth-of-type(4) { animation-duration: 10s; animation-delay: -2s; }
+
+/* Parallax band */
+.parallax { background-color: var(--color-brand-blue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-in { opacity: 1; animation: none; }
+  .blob { animation: none; }
+  .parallax { background-attachment: scroll !important; }
+  html { scroll-behavior: auto; }
 }

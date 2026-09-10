@@ -1,17 +1,26 @@
-import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
+import JsonLd from "@/components/JsonLd";
+import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Contact",
   description:
-    "Tell us what you need, and we’ll create a workforce solution for you. Our team gets back to you within one business day.",
-};
+    "Tell us what you need, and we’ll create a workforce solution for you. Elevate Logistic Solutions provides staffing and workforce management to hospitals and healthcare facilities nationwide.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
+
       <PageHero
         title="Let’s Build Your Healthcare Workforce Together"
         subtitle="Tell us what you need, and we’ll create a workforce solution for you."
@@ -21,21 +30,23 @@ export default function ContactPage() {
         <div className="mx-auto max-w-2xl">
           <ContactForm />
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-black/10 bg-soft p-6">
-              <h3 className="font-bold">Email us</h3>
+          <div className="mt-10 rounded-3xl border border-black/10 bg-soft p-8 text-center md:p-10">
+            <h3 className="text-xl font-bold">Prefer to reach us directly?</h3>
+            <p className="mx-auto mt-3 max-w-xl text-muted">
+              Elevate Logistic Solutions provides staffing and workforce management
+              solutions to hospitals and healthcare facilities nationwide.
+            </p>
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-8">
+              <p className="text-ink">
+                <span className="font-semibold">Offices:</span>{" "}
+                {site.officeCityShort}
+              </p>
               <a
                 href={`mailto:${site.email}`}
-                className="mt-1 block break-all font-medium text-brand-berry hover:underline"
+                className="font-semibold text-brand-berry hover:underline"
               >
                 {site.email}
               </a>
-            </div>
-            <div className="rounded-2xl border border-black/10 bg-soft p-6">
-              <h3 className="font-bold">Where are we?</h3>
-              <p className="mt-1 text-muted">
-                Our offices are located in {site.officeCity}
-              </p>
             </div>
           </div>
         </div>

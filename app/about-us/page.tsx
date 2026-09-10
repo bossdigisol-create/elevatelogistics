@@ -1,14 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { careEnvironments } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
+import { careEnvironments, whyChooseUs } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "About Us",
   description:
-    "Built by healthcare professionals. Designed for real-world impact. Vendor-neutral, data-informed, and always human-first.",
-};
+    "Elevate Logistic Solutions is a women-owned, vendor-neutral healthcare workforce MSP built by clinicians, researchers, data scientists, and healthcare executives. Real-world impact, data-informed, human-first.",
+  path: "/about-us",
+});
 
 const differentiators = [
   {
@@ -28,6 +30,13 @@ const differentiators = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "About Us", path: "/about-us" },
+        ])}
+      />
+
       <PageHero
         title="Elevating the Healthcare Workforce, From the Inside Out"
         subtitle="Built by healthcare professionals. Designed for real-world impact. Vendor-neutral, data-informed, and always human-first."
@@ -104,7 +113,7 @@ export default function AboutPage() {
           </div>
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {differentiators.map((d, idx) => (
-              <Reveal key={d.title} delay={idx * 80}>
+              <Reveal key={d.title} delay={idx * 80} dir="up">
                 <article className="h-full rounded-2xl bg-white p-8 shadow-card">
                   <div className="text-gradient text-4xl font-black">
                     0{idx + 1}
@@ -134,6 +143,65 @@ export default function AboutPage() {
                 <span className="font-medium text-ink">{c}</span>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Work With Elevate? */}
+      <section className="section-x bg-soft py-20 md:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-extrabold md:text-4xl">
+              Why Work With Elevate?
+            </h2>
+            <p className="mt-4 text-muted">
+              Hospitals choose ELS because we go beyond workforce management — we build
+              partnerships that drive long-term success.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {whyChooseUs.map((w, idx) => (
+              <Reveal key={w.title} delay={(idx % 3) * 80} dir="up">
+                <article className="flex h-full items-start gap-4 rounded-2xl bg-white p-7 shadow-card">
+                  <span className="bg-grad-primary mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-bold">{w.title}</h3>
+                    <p className="mt-2 leading-relaxed text-muted">{w.body}</p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <p className="text-lg font-semibold text-ink">
+              Ready to experience a new standard in healthcare workforce strategy?
+            </p>
+            <Link href="/contact" className="btn-pill mt-6">
+              Let&apos;s Connect!
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Elevate is Recognized For */}
+      <section className="section-x py-20 md:py-24">
+        <div className="mx-auto max-w-[1000px]">
+          <div className="bg-grad-cta relative overflow-hidden rounded-[2rem] px-8 py-14 text-center text-white md:px-16">
+            <div className="blob left-[10%] top-[-40px] h-52 w-52" />
+            <div className="blob right-[12%] bottom-[-60px] h-64 w-64" />
+            <div className="relative">
+              <h2 className="text-3xl font-extrabold md:text-4xl">
+                Elevate is Recognized For
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg text-white/90">
+                Our commitment to rigorous screening, credentialing, and compliance
+                tracking means you can trust every professional we place.
+              </p>
+            </div>
           </div>
         </div>
       </section>

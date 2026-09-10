@@ -92,8 +92,8 @@ export default function Header() {
 
       {/* Slide-in menu */}
       <div
-        className={`fixed inset-0 z-40 transition ${
-          open ? "visible opacity-100" : "invisible opacity-0"
+        className={`fixed inset-0 z-40 overflow-hidden transition ${
+          open ? "visible opacity-100" : "pointer-events-none invisible opacity-0"
         }`}
       >
         <div
@@ -106,7 +106,7 @@ export default function Header() {
           }`}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={site.logo} alt={site.name} className="logo-white h-12 w-auto self-start" />
+          <img src={site.logoWhite} alt={site.name} className="h-12 w-auto self-start" />
           <nav className="mt-2 flex flex-col gap-4">
             {nav.map((item) => (
               <Link

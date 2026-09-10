@@ -3,7 +3,22 @@ import Reveal from "@/components/Reveal";
 import RotatingWords from "@/components/RotatingWords";
 import StatsCounter from "@/components/StatsCounter";
 import Testimonials from "@/components/Testimonials";
-import { differentiators, homeServices, idealWorkforceBullets, site } from "@/lib/site";
+import Parallax from "@/components/Parallax";
+import JsonLd from "@/components/JsonLd";
+import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
+import {
+  differentiators,
+  homeServices,
+  idealWorkforceBullets,
+  site,
+} from "@/lib/site";
+
+export const metadata = pageMeta({
+  title: "Strategic Healthcare Workforce Solutions",
+  description:
+    "Women-owned, vendor-neutral healthcare workforce MSP. Elevate Logistic Solutions delivers data-informed staffing, workforce management, and consulting that improves care and scales with your needs.",
+  path: "/",
+});
 
 const cardIcons = [
   "M12 2l2.6 5.9L21 9l-4.8 4.2L17.6 20 12 16.6 6.4 20l1.4-6.8L3 9l6.4-1.1z", // insight
@@ -17,6 +32,10 @@ const cardIcons = [
 export default function HomePage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([{ name: "Home", path: "/" }])}
+      />
+
       {/* ---------- Hero ---------- */}
       <section className="relative isolate flex min-h-[82vh] items-center overflow-hidden bg-grad-primary">
         <video
@@ -26,6 +45,7 @@ export default function HomePage() {
           loop
           playsInline
           preload="metadata"
+          poster={site.parallaxImage}
         >
           <source src={site.heroVideo} />
         </video>
@@ -34,16 +54,18 @@ export default function HomePage() {
           style={{ backgroundImage: "var(--grad-hero-overlay)" }}
         />
         <div className="relative mx-auto w-full max-w-[1080px] px-6 py-24 text-center text-white">
-          <h1 className="text-4xl font-extrabold leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] md:text-6xl">
-            Strategic Workforce Solutions Built By Healthcare Experts
+          <h1 className="hero-in hero-in-1 text-4xl font-extrabold leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] md:text-6xl">
+            Strategic Workforce Solutions Built by Healthcare Experts
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
-            End-To-End Workforce Support That Improves Care And Scales With Your
-            Needs
+          <p className="hero-in hero-in-2 mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
+            End-to-end workforce support that improves care and scales with your
+            needs
           </p>
-          <Link href="/contact" className="btn-pill mt-9 text-base">
-            Let&apos;s Connect!
-          </Link>
+          <div className="hero-in hero-in-3 mt-9">
+            <Link href="/contact" className="btn-pill text-base">
+              Let&apos;s Connect!
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -100,6 +122,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ---------- Parallax band (Home-BG-Slide) ---------- */}
+      <Parallax
+        image={site.parallaxImage}
+        overlay="linear-gradient(284deg, rgba(173,23,101,0.82) 0%, rgba(22,0,181,0.78) 100%)"
+        minHeight="clamp(380px, 62vh, 640px)"
+      >
+        <div className="mx-auto max-w-2xl py-24 text-center text-white md:py-28">
+          <Reveal>
+            <p className="text-sm font-semibold tracking-[0.3em] text-white/70">
+              DATA-INFORMED WORKFORCE STRATEGY
+            </p>
+            <h2 className="mt-4 text-3xl font-extrabold leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] md:text-5xl">
+              See Your Workforce Through a New Lens
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-lg text-white/90">
+              We turn workforce data into action—revealing opportunities, predicting
+              gaps, and building strategies that scale across every care environment.
+            </p>
+            <Link
+              href="/our-services"
+              className="mt-9 inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 font-semibold text-brand-berry transition hover:bg-white/90"
+            >
+              Explore Our Services
+            </Link>
+          </Reveal>
+        </div>
+      </Parallax>
+
       {/* ---------- What Makes Us Different ---------- */}
       <section className="section-x bg-soft py-20 md:py-28">
         <div className="mx-auto max-w-[1240px]">
@@ -115,7 +165,7 @@ export default function HomePage() {
           </div>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {differentiators.map((d, idx) => (
-              <Reveal key={d.title} delay={(idx % 3) * 80}>
+              <Reveal key={d.title} delay={(idx % 3) * 80} dir="up">
                 <article className="h-full rounded-2xl bg-white p-8 shadow-card transition hover:-translate-y-1">
                   <div className="bg-grad-primary flex h-14 w-14 items-center justify-center rounded-2xl text-white">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -153,7 +203,7 @@ export default function HomePage() {
 
           <div className="mt-14 space-y-6">
             {homeServices.map((s, idx) => (
-              <Reveal key={s.title}>
+              <Reveal key={s.title} dir={idx % 2 === 1 ? "right" : "left"}>
                 <article className="grid items-center gap-8 rounded-3xl bg-soft p-8 md:grid-cols-[1.4fr_1fr] md:p-10">
                   <div className={idx % 2 === 1 ? "md:order-2" : ""}>
                     <h3 className="text-2xl font-bold">{s.title}</h3>
@@ -214,14 +264,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------- Let's Build Your Ideal Workforce ---------- */}
-      <section className="section-x py-20 md:py-28">
+      {/* ---------- Let's Build Your Ideal Workforce (Contact-BG parallax) ---------- */}
+      <Parallax
+        image={site.contactBg}
+        overlay="linear-gradient(100deg, rgba(250,247,251,0.94) 0%, rgba(250,247,251,0.82) 55%, rgba(207,39,127,0.28) 100%)"
+        minHeight="auto"
+        className="py-20 md:py-28"
+      >
         <div className="mx-auto grid max-w-[1240px] items-center gap-12 lg:grid-cols-2">
-          <Reveal>
+          <Reveal dir="left">
             <p className="text-sm font-semibold tracking-[0.3em] text-brand-berry">
               START TODAY!
             </p>
-            <h2 className="mt-3 text-3xl font-extrabold md:text-5xl">
+            <h2 className="mt-3 text-3xl font-extrabold text-ink md:text-5xl">
               Let’s Build Your Ideal Workforce
             </h2>
             <p className="mt-5 text-muted">
@@ -229,7 +284,7 @@ export default function HomePage() {
               health with the same level of care and expertise you bring to your
               patients.
             </p>
-            <p className="mt-6 font-semibold">
+            <p className="mt-6 font-semibold text-ink">
               Let’s build a workforce that performs today—and thrives tomorrow.
             </p>
             <Link href="/contact" className="btn-pill mt-8">
@@ -237,8 +292,8 @@ export default function HomePage() {
             </Link>
           </Reveal>
 
-          <Reveal delay={120}>
-            <ul className="space-y-4 rounded-3xl bg-soft p-8 md:p-10">
+          <Reveal delay={120} dir="right">
+            <ul className="space-y-4 rounded-3xl bg-white/90 p-8 shadow-card backdrop-blur md:p-10">
               {idealWorkforceBullets.map((b) => (
                 <li key={b} className="flex items-start gap-4">
                   <span className="bg-grad-primary mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white">
@@ -252,7 +307,7 @@ export default function HomePage() {
             </ul>
           </Reveal>
         </div>
-      </section>
+      </Parallax>
 
       {/* ---------- Testimonials ---------- */}
       <section className="section-x bg-soft py-20 md:py-28">

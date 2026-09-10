@@ -16,7 +16,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={site.logo} alt={site.name} className="logo-white h-14 w-auto" />
+            <img src={site.logoWhite} alt={site.name} className="h-14 w-auto" />
             <p className="mt-5 text-xl font-semibold">
               <span className="font-light italic">Elevating</span> Workforce
               Strategy.
