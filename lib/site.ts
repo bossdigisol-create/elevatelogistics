@@ -36,6 +36,10 @@ export const site = {
   // Accreditation seal shown in the "Elevate is Recognized For" section.
   jointCommission: "/media/Joint-Commision.png",
 
+  // Background photo behind the "We're Built for Every Care Environment" band
+  // (extracted from the WordPress site: About-BG-scaled.jpg).
+  careEnvBg: "/media/care-environment-bg.jpg",
+
   tagline: "Elevating Workforce Strategy.",
   taglineSub:
     "Supporting workforce operations through innovation, transparency & precision.",

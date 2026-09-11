@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import RotatingWords from "@/components/RotatingWords";
 import HeroVideo from "@/components/HeroVideo";
 import Testimonials from "@/components/Testimonials";
 import JsonLd from "@/components/JsonLd";
@@ -77,56 +78,52 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ---------- Tagline strip ---------- */}
-      <div className="bg-grad-footer text-white">
-        <p className="mx-auto max-w-[1240px] px-6 py-4 text-center text-sm font-semibold tracking-[0.25em] md:text-base">
-          WOMEN OWNED <span className="mx-3 text-white/50">|</span> VENDOR NEUTRAL{" "}
-          <span className="mx-3 text-white/50">|</span> CLINICIAN LED
-        </p>
-      </div>
-
-      {/* ---------- Our Story / Mission / Beliefs ---------- */}
+      {/* ---------- Our Story / Mission / Beliefs (rotating heading left · copy + CTA right) ---------- */}
       <section className="section-x py-20 md:py-28">
-        <div className="mx-auto max-w-[900px]">
-          <div className="flex flex-wrap justify-center gap-3">
-            {["Our Story", "Mission", "Beliefs"].map((t, i) => (
-              <span
-                key={t}
-                className={`rounded-full px-6 py-2 text-sm font-semibold ${
-                  i === 0 ? "bg-grad-primary text-white" : "bg-soft text-muted"
-                }`}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-          <div className="mt-10 space-y-6 text-lg leading-relaxed text-muted">
-            <p className="font-semibold text-ink">
+        <div className="mx-auto grid max-w-[1240px] items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          {/* Left: tagline eyebrow + rotating heading + bold lead */}
+          <Reveal dir="left">
+            <p className="text-sm font-semibold tracking-[0.25em] text-muted md:text-base">
+              WOMEN OWNED <span className="mx-2 text-brand-pink/60">|</span> VENDOR
+              NEUTRAL <span className="mx-2 text-brand-pink/60">|</span> CLINICIAN LED
+            </p>
+            <h2 className="mt-5 text-4xl font-extrabold leading-[1.05] md:text-6xl">
+              Our{" "}
+              <RotatingWords words={["Story", "Mission", "Beliefs"]} />
+            </h2>
+            <p className="mt-8 text-lg font-semibold leading-relaxed text-brand-berry">
               Elevate Logistic Solutions (ELS) is not your typical workforce partner.
               We’re a woman-owned, vendor-neutral Managed Service Provider (MSP) led by
               a team of clinicians, researchers, data scientists, and healthcare
               executives with decades of experience across every level of care
               delivery.
             </p>
-            <p>
-              We’ve been on the front lines. We’ve built care teams, managed compliance
-              audits, launched new facilities, and navigated workforce crises. That’s
-              why we created ELS—to deliver smarter, faster, and more human-centered
-              workforce solutions for healthcare organizations of all sizes and
-              specialties.
-            </p>
-            <p>
-              Whether you’re managing a multi-site health system or a single-site care
-              facility, we partner with you to build, manage, and evolve your workforce
-              with speed, precision, and empathy—because our mission is to strengthen
-              healthcare delivery by elevating the people behind it.
-            </p>
-          </div>
-          <div className="mt-8 text-center">
-            <Link href="/our-services" className="btn-pill">
+          </Reveal>
+
+          {/* Right: supporting copy + CTA */}
+          <Reveal delay={120} dir="right">
+            <div className="space-y-6 text-lg leading-relaxed text-muted">
+              <p>
+                We’ve been on the front lines. We’ve built care teams, managed
+                compliance audits, launched new facilities, and navigated workforce
+                crises. That’s why we created ELS—to deliver smarter, faster, and more
+                human-centered workforce solutions for healthcare organizations of all
+                sizes and specialties.
+              </p>
+              <p>
+                Whether you’re managing a multi-site health system or a single-site care
+                facility, we partner with you to build, manage, and evolve your
+                workforce with speed, precision, and empathy—
+                <span className="font-semibold text-ink">
+                  because our mission is to strengthen healthcare delivery by elevating
+                  the people behind it.
+                </span>
+              </p>
+            </div>
+            <Link href="/our-services" className="btn-pill mt-9">
               Explore Our Services
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -164,31 +161,49 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ---------- Built for Every Care Environment ---------- */}
-      <section className="section-x py-20 md:py-28">
-        <div className="mx-auto max-w-[1000px] text-center">
-          <h2 className="text-3xl font-extrabold md:text-4xl">
-            We’re Built for Every Care Environment
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted">
-            {careEnvironmentsIntro}
-          </p>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {careEnvironments.map((c, idx) => (
-              <Reveal key={c} delay={(idx % 3) * 70} dir="up">
-                <div className="flex h-full items-center gap-3 rounded-2xl border border-black/10 bg-soft px-6 py-5 text-left transition hover:border-brand-pink/40 hover:shadow-card">
-                  <span className="bg-grad-primary h-2.5 w-2.5 shrink-0 rounded-full" />
-                  <span className="font-medium text-ink">{c}</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <p className="mx-auto mt-12 max-w-2xl text-lg font-semibold text-ink">
-            {careEnvironmentsClosing}
-          </p>
-          <Link href="/contact" className="btn-pill mt-8">
-            Request a Consultation
-          </Link>
+      {/* ---------- We’re Built for Every Care Environment (START TODAY! · photo band) ---------- */}
+      <section className="relative isolate overflow-hidden bg-brand-blue">
+        {/* Background photo — the clinicians sit on the right, copy reads over the
+            empty left space (position pinned right on desktop). */}
+        <div
+          className="absolute inset-0 bg-cover bg-center md:[background-position:right_center]"
+          style={{ backgroundImage: `url(${site.careEnvBg})` }}
+        />
+        {/* Brand gradient overlay for legibility (blue → berry, left-heavy). */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(100deg, rgba(22,0,181,0.95) 0%, rgba(93,17,120,0.90) 42%, rgba(173,23,101,0.68) 78%, rgba(150,20,90,0.48) 100%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-[1240px] px-6 py-20 md:py-28">
+          <Reveal dir="left" className="max-w-xl text-white">
+            <p className="text-sm font-semibold tracking-[0.3em] text-white/85">
+              START TODAY!
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.3)] md:text-5xl">
+              We’re Built for Every Care Environment
+            </h2>
+            <p className="mt-6 text-lg font-semibold">{careEnvironmentsIntro}</p>
+            <ul className="mt-6 space-y-3.5">
+              {careEnvironments.map((c) => (
+                <li key={c} className="flex items-center gap-3 text-lg text-white/95">
+                  <span className="h-2 w-2 shrink-0 rounded-full bg-white/80" />
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 max-w-lg text-lg font-semibold">
+              {careEnvironmentsClosing}
+            </p>
+            <Link
+              href="/contact"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 font-semibold text-brand-berry transition hover:-translate-y-0.5 hover:bg-white/90"
+            >
+              Request a Consultation
+            </Link>
+          </Reveal>
         </div>
       </section>
 
