@@ -172,6 +172,12 @@ body {
 .blob:nth-of-type(3) { animation-duration: 13s; animation-delay: -6s; }
 .blob:nth-of-type(4) { animation-duration: 10s; animation-delay: -2s; }
 
+/* Gentle float for the accreditation seal (reuses the float-blob motion) */
+.animate-float-soft {
+  animation: float-blob 7s ease-in-out infinite;
+  will-change: transform;
+}
+
 /* Parallax band */
 .parallax { background-color: var(--color-brand-blue); }
 
@@ -179,6 +185,7 @@ body {
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero-in { opacity: 1; animation: none; }
   .blob { animation: none; }
+  .animate-float-soft { animation: none; }
   .parallax { background-attachment: scroll !important; }
   html { scroll-behavior: auto; }
 }

@@ -13,7 +13,15 @@ import { site } from "@/lib/site";
  * autoplay covers most browsers, and a canplay retry plus a one-time
  * user-gesture fallback covers mobile/low-power modes that withhold autoplay.
  */
-export default function HeroVideo() {
+export default function HeroVideo({
+  src = site.heroVideo,
+  poster = site.heroPoster,
+  className = "absolute inset-0 h-full w-full object-cover",
+}: {
+  src?: string;
+  poster?: string;
+  className?: string;
+} = {}) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -55,17 +63,17 @@ export default function HeroVideo() {
   return (
     <video
       ref={ref}
-      className="absolute inset-0 h-full w-full object-cover"
+      className={className}
       autoPlay
       muted
       loop
       playsInline
       preload="auto"
-      poster={site.heroPoster}
+      poster={poster}
       aria-hidden="true"
       tabIndex={-1}
     >
-      <source src={site.heroVideo} type="video/mp4" />
+      <source src={src} type="video/mp4" />
     </video>
   );
 }

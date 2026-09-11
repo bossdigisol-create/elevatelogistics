@@ -2,14 +2,34 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { nav, site } from "@/lib/site";
+
+// Layout effect on the client (measures the underline before paint → no flash),
+// plain effect on the server so there is no SSR "useLayoutEffect does nothing"
+// warning. Named so it isn't treated as a raw effect that sets state in its body.
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [condensed, setCondensed] = useState(false);
+
+  // Close the mobile menu when the route changes. Adjusting state during render
+  // (comparing against the previous value) is React's recommended alternative
+  // to a setState-in-effect, and avoids an extra render pass.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   // Sliding underline state (desktop nav)
   const [hover, setHover] = useState<number | null>(null);
@@ -35,7 +55,7 @@ export default function Header() {
   }, [shown]);
 
   // Recompute underline on active/hover change and on route change.
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     measure();
   }, [measure, pathname]);
 
@@ -48,21 +68,25 @@ export default function Header() {
     return () => window.removeEventListener("resize", onResize);
   }, [measure]);
 
+  // Shadow-only scroll flag. This toggles a box-shadow (no layout change, so it
+  // can never cause the sticky rows to reflow) — the row show/hide behaviour is
+  // handled entirely by CSS `position: sticky`, which is what keeps it smooth.
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 8);
-      // Past this point the logo + Contact button collapse away and only the
-      // nav bar stays pinned at the top (desktop).
-      setCondensed(y > 72);
+    let ticking = false;
+    const update = () => {
+      setScrolled(window.scrollY > 8);
+      ticking = false;
     };
-    onScroll();
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  // Close the menu on route change.
-  useEffect(() => setOpen(false), [pathname]);
 
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
@@ -74,28 +98,25 @@ export default function Header() {
 
   return (
     <>
+      {/* Row 1 (banner): logo + (desktop) Contact / (mobile) menu button.
+          Sticky on mobile so the menu button is always reachable; STATIC on
+          desktop so it scrolls away naturally on scroll-down while the nav bar
+          (Row 2) stays pinned. Row 1 and Row 2 are BOTH direct children of the
+          document flow (not wrapped in a shared box) so `position: sticky`
+          resolves against the page, not a short parent. Pure CSS — no JS on the
+          scroll path, so it never flickers. */}
       <header
-        className={`sticky top-0 z-50 bg-header/95 backdrop-blur transition-shadow ${
-          scrolled ? "shadow-[0_6px_24px_-16px_rgba(28,27,34,0.5)]" : ""
+        className={`sticky top-0 z-50 bg-header/95 backdrop-blur transition-shadow duration-300 md:static ${
+          scrolled ? "shadow-[0_6px_24px_-16px_rgba(28,27,34,0.5)] md:shadow-none" : ""
         }`}
       >
-        {/* Row 1: logo + (desktop) Contact / (mobile) menu button.
-            On desktop this row collapses away on scroll so only the nav bar
-            (Row 2) stays pinned to the top. */}
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-out ${
-            condensed ? "md:max-h-0 md:opacity-0" : "md:max-h-40 md:opacity-100"
-          }`}
-        >
-          <div className="mx-auto flex max-w-[1240px] items-center justify-between px-5 py-3 md:py-4">
+        <div className="mx-auto flex max-w-[1240px] items-center justify-between px-5 py-3 md:py-4">
           <Link href="/" aria-label={site.name} className="shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={site.logo}
               alt={site.name}
-              className={`w-auto transition-all duration-300 md:h-28 ${
-                condensed ? "h-14" : "h-20"
-              }`}
+              className="h-14 w-auto md:h-24"
             />
           </Link>
 
@@ -130,12 +151,18 @@ export default function Header() {
               }`}
             />
           </button>
-          </div>
         </div>
+      </header>
 
-        {/* Row 2: desktop nav with sliding underline + menu (bar) button */}
-        <div className="hidden border-t border-black/5 md:block">
-          <nav className="relative mx-auto flex max-w-[1240px] items-center gap-9 px-5">
+      {/* Row 2: desktop nav with sliding underline + menu (bar) button.
+          A sibling of Row 1 (not nested) so it sticks to the top of the page
+          once Row 1 scrolls away on desktop. */}
+      <div
+        className={`sticky top-0 z-40 hidden border-t border-black/5 bg-header/95 backdrop-blur transition-shadow duration-300 md:block ${
+          scrolled ? "shadow-[0_6px_24px_-16px_rgba(28,27,34,0.5)]" : ""
+        }`}
+      >
+        <nav className="relative mx-auto flex max-w-[1240px] items-center gap-9 px-5">
             {nav.map((item, i) => (
               <Link
                 key={item.href}
@@ -181,11 +208,10 @@ export default function Header() {
             />
           </nav>
         </div>
-      </header>
 
       {/* Slide-in menu (mobile toggle + desktop bar button) — rendered OUTSIDE the
-          backdrop-blurred header so `position: fixed` resolves against the
-          viewport (full height, on top). */}
+          sticky rows so `position: fixed` resolves against the viewport (full
+          height, on top). */}
       <div
         className={`fixed inset-0 z-[60] overflow-hidden ${
           open ? "" : "pointer-events-none"

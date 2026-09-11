@@ -27,6 +27,15 @@ export const site = {
   heroVideo: "/media/herosection-behind-video.mp4",
   heroPoster: "/media/home-parallax.jpg",
 
+  // About-page hero background video. Source was a QuickTime (.mov) clip; it is
+  // rebranded to an MP4 container and rewritten "faststart" (moov atom moved
+  // ahead of mdat) so playback begins before the full file downloads.
+  aboutHeroVideo: "/media/about-hero-section.mp4",
+  aboutHeroPoster: "/media/home-parallax.jpg",
+
+  // Accreditation seal shown in the "Elevate is Recognized For" section.
+  jointCommission: "/media/Joint-Commision.png",
+
   tagline: "Elevating Workforce Strategy.",
   taglineSub:
     "Supporting workforce operations through innovation, transparency & precision.",
@@ -181,6 +190,25 @@ export const careEnvironments = [
   "Home Health and Hospice Providers",
   "Community-Based and Nonprofit Clinics",
 ];
+
+export const careEnvironmentsIntro =
+  "We serve a wide range of healthcare facilities—including:";
+export const careEnvironmentsClosing =
+  "Whether you need to staff a unit overnight or rethink your five-year workforce strategy, we meet you where you are.";
+
+// "Elevate is Recognized For" section (accreditation + certification).
+export const recognizedFor = {
+  heading: "Elevate is Recognized For",
+  body: "Our commitment to rigorous screening, credentialing, and compliance tracking means you can trust every professional we place.",
+  points: [
+    "Rigorous, multi-step candidate screening",
+    "Full credential verification and tracking",
+    "Continuous compliance and audit-ready documentation",
+  ],
+  badge: "Women's Business Enterprise (WBE) Certified",
+  sealAlt:
+    "The Joint Commission — National Quality Approval gold seal of accreditation",
+};
 
 // ---- Services page -------------------------------------------------
 export const serviceGroups = [
