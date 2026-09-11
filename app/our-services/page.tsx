@@ -1,3 +1,10 @@
+import {
+  LayoutDashboard,
+  ChartColumn,
+  TrendingUp,
+  ChartLine,
+  ChartPie,
+} from "lucide-react";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import CtaBanner from "@/components/CtaBanner";
@@ -12,6 +19,15 @@ export const metadata = pageMeta({
     "End-to-end healthcare workforce solutions—per diem, travel, temp-to-hire and crisis staffing, credentialing and compliance, workforce optimization, consulting, and data analytics.",
   path: "/our-services",
 });
+
+// Icons for the "What We Deliver" cards — one per analytics.deliverables entry.
+const deliverableIcons = [
+  LayoutDashboard, // Real-Time Reporting
+  ChartColumn, // Utilization Analysis
+  TrendingUp, // Predictive Analytics
+  ChartLine, // Cost Trend Tracking
+  ChartPie, // Workforce Mix Modeling
+];
 
 export default function ServicesPage() {
   return (
@@ -97,17 +113,20 @@ export default function ServicesPage() {
             What We Deliver
           </h3>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {analytics.deliverables.map((d, idx) => (
-              <Reveal key={d.title} delay={(idx % 3) * 80} dir="up">
-                <article className="h-full rounded-2xl border border-black/5 bg-soft p-7 shadow-card">
-                  <div className="text-gradient text-3xl font-black">
-                    0{idx + 1}
-                  </div>
-                  <h4 className="mt-3 text-lg font-bold text-ink">{d.title}</h4>
-                  <p className="mt-2 leading-relaxed text-muted">{d.body}</p>
-                </article>
-              </Reveal>
-            ))}
+            {analytics.deliverables.map((d, idx) => {
+              const Icon = deliverableIcons[idx];
+              return (
+                <Reveal key={d.title} delay={(idx % 3) * 80} dir="up">
+                  <article className="h-full rounded-2xl border border-black/5 bg-soft p-7 shadow-card">
+                    <div className="bg-grad-primary flex h-12 w-12 items-center justify-center rounded-xl text-white shadow-pill">
+                      <Icon className="h-6 w-6" strokeWidth={1.7} aria-hidden />
+                    </div>
+                    <h4 className="mt-4 text-lg font-bold text-ink">{d.title}</h4>
+                    <p className="mt-2 leading-relaxed text-muted">{d.body}</p>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>

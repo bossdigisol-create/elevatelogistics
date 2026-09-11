@@ -18,6 +18,9 @@ export default function Reveal({
 }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
+  // Once the entrance transition has finished we drop the compositor hint so we
+  // don't leave a promoted layer behind for the life of the page (mobile cost).
+  const [settled, setSettled] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -42,7 +45,13 @@ export default function Reveal({
       ref={ref}
       data-dir={dir}
       className={`reveal ${visible ? "is-visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{
+        transitionDelay: `${delay}ms`,
+        willChange: settled ? undefined : "opacity, transform",
+      }}
+      onTransitionEnd={() => {
+        if (visible) setSettled(true);
+      }}
     >
       {children}
     </div>

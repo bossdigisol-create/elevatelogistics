@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Users, SlidersHorizontal, Lightbulb } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import RotatingWords from "@/components/RotatingWords";
 import StatsCounter from "@/components/StatsCounter";
@@ -20,6 +21,9 @@ export const metadata = pageMeta({
     "Women-owned, vendor-neutral healthcare workforce MSP. Elevate Logistic Solutions delivers data-informed staffing, workforce management, and consulting that improves care and scales with your needs.",
   path: "/",
 });
+
+// Icons for the "Our Services at a Glance" cards — one per homeServices entry.
+const homeServiceIcons = [Users, SlidersHorizontal, Lightbulb];
 
 const cardIcons = [
   "M12 2l2.6 5.9L21 9l-4.8 4.2L17.6 20 12 16.6 6.4 20l1.4-6.8L3 9l6.4-1.1z", // insight
@@ -175,28 +179,35 @@ export default function HomePage() {
           </div>
 
           <div className="mt-14 space-y-6">
-            {homeServices.map((s, idx) => (
-              <Reveal key={s.title} dir={idx % 2 === 1 ? "right" : "left"}>
-                <article className="flex flex-col gap-5 rounded-3xl bg-soft p-8 md:grid md:grid-cols-[1.4fr_1fr] md:items-center md:gap-8 md:p-10">
-                  {/* Number badge — small centered icon on mobile (top), full side
-                      panel on desktop. DOM-first so mobile shows it above content. */}
-                  <div
-                    className={`bg-grad-primary mx-auto flex h-14 w-14 items-center justify-center rounded-2xl text-2xl font-black text-white shadow-pill md:mx-0 md:h-44 md:w-auto md:text-6xl md:text-white/90 md:shadow-none ${
-                      idx % 2 === 1 ? "md:order-1" : "md:order-2"
-                    }`}
-                  >
-                    0{idx + 1}
-                  </div>
-                  <div className={idx % 2 === 1 ? "md:order-2" : "md:order-1"}>
-                    <h3 className="text-2xl font-bold">{s.title}</h3>
-                    <p className="mt-4 leading-relaxed text-muted">{s.body}</p>
-                    <Link href="/our-services" className="btn-pill mt-6 text-sm">
-                      {s.cta}
-                    </Link>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
+            {homeServices.map((s, idx) => {
+              const Icon = homeServiceIcons[idx];
+              return (
+                <Reveal key={s.title} dir={idx % 2 === 1 ? "right" : "left"}>
+                  <article className="flex flex-col gap-5 rounded-3xl bg-soft p-8 md:grid md:grid-cols-[1.4fr_1fr] md:items-center md:gap-8 md:p-10">
+                    {/* Icon badge — small centered badge on mobile (top), full side
+                        panel on desktop. DOM-first so mobile shows it above content. */}
+                    <div
+                      className={`bg-grad-primary mx-auto flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-pill md:mx-0 md:h-44 md:w-auto md:rounded-3xl md:shadow-none ${
+                        idx % 2 === 1 ? "md:order-1" : "md:order-2"
+                      }`}
+                    >
+                      <Icon
+                        className="h-7 w-7 md:h-16 md:w-16"
+                        strokeWidth={1.6}
+                        aria-hidden
+                      />
+                    </div>
+                    <div className={idx % 2 === 1 ? "md:order-2" : "md:order-1"}>
+                      <h3 className="text-2xl font-bold">{s.title}</h3>
+                      <p className="mt-4 leading-relaxed text-muted">{s.body}</p>
+                      <Link href="/our-services" className="btn-pill mt-6 text-sm">
+                        {s.cta}
+                      </Link>
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>

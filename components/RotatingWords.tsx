@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function RotatingWords({
   words,
-  interval = 2000,
+  interval = 2800,
   className = "",
 }: {
   words: string[];
@@ -20,7 +20,7 @@ export default function RotatingWords({
 
   return (
     <span className={`relative inline-block ${className}`}>
-      <span key={i} className="text-gradient inline-block animate-[fade-up_0.5s_ease]">
+      <span key={i} className="text-gradient inline-block animate-[fade-up_0.6s_ease]">
         {words[i]}
       </span>
     </span>
