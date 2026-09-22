@@ -6,10 +6,19 @@ import { pageMeta, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { faqs, site } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "FAQ",
+  title: "Healthcare Staffing FAQ",
+  titleTag: "Healthcare Staffing FAQ | Elevate Logistic Solutions",
   description:
-    "Answers to common questions about Elevate Logistic Solutions—staffing speed, roles we place, organizations we serve, quality, transparency, and how to get started.",
+    "Answers about staffing speed, the healthcare roles we place, quality, compliance, transparency, and how to start a workforce partnership with ELS.",
   path: "/faq",
+  keywords: [
+    "healthcare staffing FAQ",
+    "healthcare staffing agency",
+    "nurse staffing solutions",
+    "credentialing and compliance",
+    "healthcare workforce management",
+    "crisis response staffing",
+  ],
 });
 
 export default function FaqPage() {

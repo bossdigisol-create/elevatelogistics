@@ -17,8 +17,9 @@ import {
 
 export const metadata = pageMeta({
   title: "Strategic Healthcare Workforce Solutions",
+  titleTag: "Healthcare Workforce Solutions | Elevate Logistic Solutions",
   description:
-    "Women-owned, vendor-neutral healthcare workforce MSP. Elevate Logistic Solutions delivers data-informed staffing, workforce management, and consulting that improves care and scales with your needs.",
+    "Women-owned, vendor-neutral healthcare workforce MSP delivering data-informed staffing, workforce management, and consulting that scales with your needs.",
   path: "/",
 });
 

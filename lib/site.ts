@@ -10,6 +10,12 @@ export const site = {
   region: "NY",
   copyright: "© 2025 Elevate Logistic Solutions",
 
+  // Site builder credit shown in the footer bottom bar.
+  developer: {
+    name: "BOSS Digital Solutions",
+    url: "https://www.bossdigitalsol.com/",
+  },
+
   // Self-hosted brand assets (see /public/media). Faster + independent of the WP CDN.
   logo: "/media/logo.svg",
   logoWhite: "/media/logo-white.svg",

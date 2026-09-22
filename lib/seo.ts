@@ -7,11 +7,18 @@ import { site } from "@/lib/site";
  */
 export function pageMeta({
   title,
+  titleTag,
   description,
   path,
   keywords,
 }: {
   title: string;
+  /**
+   * Optional absolute <title> tuned for search engines: keyword-first, with the
+   * brand after a pipe, kept near ~60 characters (the width Google shows). When
+   * omitted, the layout's "%s — Elevate Logistic Solutions" template is used.
+   */
+  titleTag?: string;
   description: string;
   path: string;
   keywords?: string[];
@@ -21,7 +28,7 @@ export function pageMeta({
     path === "/" ? `${site.name} — ${title}` : `${title} — ${site.name}`;
 
   return {
-    title,
+    title: titleTag ? { absolute: titleTag } : title,
     description,
     keywords: keywords ?? site.keywords,
     alternates: { canonical: path },
@@ -75,6 +82,20 @@ export function organizationJsonLd() {
       addressRegion: "NY",
       addressCountry: "US",
     },
+    foundingLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Rochester",
+        addressRegion: "NY",
+        addressCountry: "US",
+      },
+    },
+    // Accreditation / certification signals (also shown on the About page).
+    award: [
+      "Women's Business Enterprise (WBE) Certified",
+      "The Joint Commission — National Quality Approval",
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       email: site.email,

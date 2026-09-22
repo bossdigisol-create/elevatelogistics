@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -64,6 +64,15 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: site.iconOutline,
   },
+};
+
+// Mobile browser chrome tint + rendering hints (App Router keeps these in a
+// separate `viewport` export from `metadata`).
+export const viewport: Viewport = {
+  themeColor: "#f5f3f8",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

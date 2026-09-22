@@ -14,10 +14,23 @@ import { pageMeta, servicesJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { analytics, serviceGroups } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Our Services",
+  title: "Healthcare Staffing & Workforce Services",
+  titleTag: "Healthcare Staffing Solutions | Elevate Logistic Solutions",
   description:
-    "End-to-end healthcare workforce solutions—per diem, travel, temp-to-hire and crisis staffing, credentialing and compliance, workforce optimization, consulting, and data analytics.",
+    "Per diem, travel, temp-to-hire, and crisis healthcare staffing, plus credentialing, compliance, workforce optimization, and consulting—nationwide.",
   path: "/our-services",
+  keywords: [
+    "healthcare staffing agency",
+    "per diem staffing",
+    "travel nurse staffing",
+    "temp-to-hire healthcare staffing",
+    "crisis response staffing",
+    "credentialing and compliance",
+    "healthcare workforce management",
+    "workforce optimization healthcare",
+    "healthcare workforce consulting",
+    "vendor neutral MSP",
+  ],
 });
 
 // Icons for the "What We Deliver" cards — one per analytics.deliverables entry.

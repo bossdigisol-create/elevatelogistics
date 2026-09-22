@@ -15,10 +15,20 @@ import {
 } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "About Us",
+  title: "About Elevate Logistic Solutions",
+  titleTag: "About Elevate Logistic Solutions | Healthcare Workforce MSP",
   description:
-    "Elevate Logistic Solutions is a women-owned, vendor-neutral healthcare workforce MSP built by clinicians, researchers, data scientists, and healthcare executives. Real-world impact, data-informed, human-first.",
+    "Elevate Logistic Solutions is a women-owned, vendor-neutral healthcare workforce MSP built by clinicians, data scientists, and healthcare executives.",
   path: "/about-us",
+  keywords: [
+    "women-owned healthcare staffing",
+    "vendor neutral MSP",
+    "clinician-led staffing",
+    "healthcare workforce solutions",
+    "managed service provider healthcare",
+    "healthcare workforce consulting",
+    "healthcare staffing Rochester NY",
+  ],
 });
 
 const differentiators = [

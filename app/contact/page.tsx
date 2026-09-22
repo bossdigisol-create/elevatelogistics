@@ -6,10 +6,18 @@ import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Contact",
+  title: "Contact Us",
+  titleTag: "Contact Us | Elevate Logistic Solutions",
   description:
-    "Tell us what you need, and we’ll create a workforce solution for you. Elevate Logistic Solutions provides staffing and workforce management to hospitals and healthcare facilities nationwide.",
+    "Contact Elevate Logistic Solutions for healthcare staffing and workforce management—serving hospitals and healthcare facilities nationwide from Rochester, NY.",
   path: "/contact",
+  keywords: [
+    "contact healthcare staffing agency",
+    "healthcare staffing Rochester NY",
+    "healthcare workforce solutions",
+    "hospital staffing nationwide",
+    "managed service provider healthcare",
+  ],
 });
 
 export default function ContactPage() {
