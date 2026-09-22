@@ -60,10 +60,8 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-    apple: site.iconOutline,
-  },
+  // Favicons come from the app/ file conventions: favicon.ico, icon.svg and
+  // apple-icon.png (the logo mark extracted from public/media/logo.svg).
 };
 
 // Mobile browser chrome tint + rendering hints (App Router keeps these in a
