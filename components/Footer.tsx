@@ -60,17 +60,25 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="bg-header">
         <div className="mx-auto flex max-w-[1240px] flex-col items-center justify-between gap-3 px-6 py-5 text-sm text-ink sm:flex-row">
+          {/* Mobile: copyright + rights / developer credit / links on three
+              centered lines. Desktop: the original single line. */}
           <p className="text-center sm:text-left">
-            {site.copyright}. Developed by{" "}
-            <a
-              href={site.developer.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-brand-berry transition hover:underline"
-            >
-              {site.developer.name}
-            </a>
-            . All Rights Reserved.
+            <span className="block sm:inline">
+              {site.copyright}.
+              <span className="sm:hidden"> All Rights Reserved.</span>
+            </span>{" "}
+            <span className="mt-1 block sm:mt-0 sm:inline">
+              Developed by{" "}
+              <a
+                href={site.developer.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand-berry transition hover:underline"
+              >
+                {site.developer.name}
+              </a>
+              <span className="hidden sm:inline">. All Rights Reserved.</span>
+            </span>
           </p>
           <div className="flex items-center gap-3">
             <Link href="/privacy-policy" className="hover:text-brand-berry">
