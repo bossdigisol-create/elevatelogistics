@@ -3,7 +3,7 @@
 export const site = {
   name: "Elevate Logistic Solutions",
   shortName: "ELS",
-  url: "https://elevatelogisticsolutions.com",
+  url: "https://www.elevatelogisticsolutions.com",
   email: "info@elevatelogisticsolutions.com",
   officeCity: "Rochester, New York",
   officeCityShort: "Rochester, NY",
