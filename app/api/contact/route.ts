@@ -1,20 +1,24 @@
-import nodemailer from "nodemailer";
 import { sanitizeContact, validateContact } from "@/lib/contact";
 import { adminEmail, thankYouEmail, LOGO_CID } from "@/lib/email-templates";
 import { emailLogoPng } from "@/lib/email-logo";
+import { mailerConfigured, sendMail, type MailAttachment } from "@/lib/mailer";
 import { site } from "@/lib/site";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
-  const { SMTP_USER, SMTP_PASS } = process.env;
-  if (!SMTP_USER || !SMTP_PASS) {
-    console.error("Contact form: SMTP_USER / SMTP_PASS are not configured.");
+  if (!mailerConfigured()) {
+    console.error("Contact form: no email backend is configured (Graph or SMTP env vars missing).");
     return Response.json(
       { ok: false, error: "Email service is not configured. Please try again later." },
       { status: 500 },
     );
   }
+
+  // Public "from" address shown to recipients (e.g. info@...), the mailbox that
+  // receives inquiries, and a friendly sender name. All overridable by env.
+  const fromAddress = process.env.MAIL_FROM || process.env.MAIL_SENDER_UPN || site.email;
+  const inboxAddress = process.env.MAIL_TO || process.env.MAIL_SENDER_UPN || fromAddress;
 
   let raw: Record<string, unknown>;
   try {
@@ -38,14 +42,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "smtp.gmail.com",
-    port: Number(process.env.SMTP_PORT || 465),
-    secure: Number(process.env.SMTP_PORT || 465) === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-
-  const logo = {
+  const logo: MailAttachment = {
     filename: "elevate-logo.png",
     content: Buffer.from(emailLogoPng, "base64"),
     contentType: "image/png",
@@ -62,9 +59,9 @@ export async function POST(req: Request) {
   const thanks = thankYouEmail(data);
 
   try {
-    await transporter.sendMail({
-      from: { name: `${site.name} Website`, address: SMTP_USER },
-      to: SMTP_USER,
+    await sendMail({
+      from: { name: `${site.name} Website`, address: fromAddress },
+      to: { address: inboxAddress },
       replyTo: { name: data.fullName, address: data.email },
       subject: admin.subject,
       html: admin.html,
@@ -81,9 +78,10 @@ export async function POST(req: Request) {
 
   // The inquiry is already delivered; a failed confirmation shouldn't fail the request.
   try {
-    await transporter.sendMail({
-      from: { name: site.name, address: SMTP_USER },
+    await sendMail({
+      from: { name: site.name, address: fromAddress },
       to: { name: data.fullName, address: data.email },
+      replyTo: { name: site.name, address: fromAddress },
       subject: thanks.subject,
       html: thanks.html,
       text: thanks.text,
